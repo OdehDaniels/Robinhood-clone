@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchOutlined from "@material-ui/icons/SearchOutlined";
 import Logo from './robinhood.svg';
 import './Header.css';
 
@@ -12,8 +13,9 @@ function Header() {
             {/* Search Bar */}
             <div className="header__search">
                 <div className="header__searchContainer">
+                    <SearchOutlined />
                     <input placeholder="Search" type="text" />
-               </div>
+                </div>
             </div>
             {/* Menu items */}
             <div className="header__menuItems">

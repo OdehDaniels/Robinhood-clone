@@ -17,11 +17,19 @@
     padding: 10px;
 }
 
-.header__searchContainer { 
+.header__searchContainer {
+    display: flex;
+    align-items: center;
+    padding: 5px;
     height: 20px;
     border: 1px solid #31363A;
     border-radius: 4px;
-    width: 375px;
+    width: 100%;
+}
+
+.header__searchContainer > .MuiSvgIcon-root {
+  color: gray;
+  padding: 10px;
 }
 
 .header__searchContainer > input { 
