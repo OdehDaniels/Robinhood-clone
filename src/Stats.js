@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './Stats.css';
 import StatsRow from "./StatsRow";
 import axios from "axios";
+import { db } from "./firebase";
 
 const BASE_URL = "https://finnhub.io/api/v1/quote?symbol=";
 const KEY_URL = `&token=${'bvtnv3748v6pijneli00'}`;
@@ -9,7 +10,31 @@ const KEY_URL = `&token=${'bvtnv3748v6pijneli00'}`;
 
 function Stats() {
 
-    const [stocksData, setStocksData] = useState([])
+    const [stocksData, setStocksData] = useState([]);
+    const [myStocks, setMyStocks] = useState([]);
+    
+    const getMyStocks = () => {
+        db
+        .collection('myStocks')
+            .onSnapshot(snapshot => {
+            console.log(snapshot)
+            let promises = [];
+            let tempData = []
+            snapshot.docs.map((doc) => {
+              promises.push(getStocksData(doc.data().ticker)
+              .then(res => {
+                tempData.push({
+                  id: doc.id,
+                  data: doc.data(),
+                  info: res.data
+                })
+              })
+            )})
+            Promise.all(promises).then(()=>{
+              setMyStocks(tempData);
+            })
+        })
+    }
     
     const getStocksData = (stock) => {
     return axios
@@ -23,7 +48,7 @@ function Stats() {
         let tempStocksData = [];
         const stocksList = ["AAPL", "MSFT", "TSLA", "FB", "BABA", "UBER", "DIS", "SBUX"];
 
-        //getMyStocks();
+        getMyStocks();
         let promises = [];
         stocksList.map((stock) => {
             promises.push(
@@ -53,18 +78,18 @@ function Stats() {
                 <div className="stats__content">
                     <div className="stats__rows">
                         {/*Current Stock  */}
-                        {/* {myStocks.map((stock) => (
+                        {myStocks.map((stock) => (
                             <StatsRow
                                 key={stock.data.ticker}
                                 name={stock.data.ticker}
                                 openPrice={stock.info.o}
-                                volume={stock.data.shares}
+                                shares={stock.data.shares}
                                 price={stock.info.c}
                             />
-                        ))} */}
+                        ))}
                     </div>
                 </div>
-                <div className="stats__header">
+                <div className="stats__header stats__list">
                     <p>Lists</p>
                 </div>
                 <div className="stats__content">
