@@ -33,7 +33,7 @@
 }
 
 .newsfeed__market__section {
-    margin-top: 60px;
+    margin-top: 30px;
 }
   
 .newsfeed__market__box {
@@ -51,3 +51,32 @@
     font-weight: 700;
     margin-bottom: 8px;
 }
+
+.newsfeed__popularlists__section {
+    margin-top: 30px;
+}
+
+  .newsfeed__popularlists__intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0px 20px 0px;
+  }
+  
+  .newsfeed__popularlists__intro > p {
+    font-weight: bold;
+    color: #5AC53B;
+  }
+  
+  .newsfeed_popularlists_badges {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .newsfeed_popularlists_badges .topic__badge {
+    border: 1px solid #31363A;
+    background-color: transparent;
+    color: white;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
